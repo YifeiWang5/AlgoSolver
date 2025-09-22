@@ -1,0 +1,5 @@
+keyring
+langgraph 
+langchain_openai
+langchain_community
+tavily-python
