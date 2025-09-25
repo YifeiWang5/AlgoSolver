@@ -1,5 +1,10 @@
 keyring
+tqdm
 langgraph 
 langchain_openai
 langchain_community
+langchain_huggingface
+sentence-transformers
+faiss-cpu
 tavily-python
+pypdf
