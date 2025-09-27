@@ -9,3 +9,4 @@ sentence-transformers
 faiss-cpu
 tavily-python
 pypdf
+graphviz
