@@ -1,0 +1,25 @@
+# ------ LangSmith Set-Up ------
+import os
+import keyring
+SERVICE = "langsmith"
+USERNAME = "api_key"
+os.environ["LANGSMITH_API_KEY"] = keyring.get_password(SERVICE, USERNAME)
+os.environ["LANGSMITH_PROJECT"] = "algo_solver"
+os.environ["LANGSMITH_TRACING"] = "true"
+
+
+import agents.workflow_compiler
+from agents.workflow_compiler import app, create_agent_state
+
+
+# ---- Interactive Session ----
+if __name__ == "__main__":
+
+    # Initialize an empty state
+    state = create_agent_state(context=f'')
+
+    # Initial full pipeline run
+    state = app.invoke(state) 
+
+    # Save graph diagram to folder
+    # save_run(state, app, run_name='dev_run1', save_path='algosolver/outputs')
