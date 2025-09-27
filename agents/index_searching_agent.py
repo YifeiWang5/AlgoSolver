@@ -28,8 +28,6 @@ class AgentState(TypedDict):
     context: str | None
     messages: list[dict[str, Any]]
     research_results: list[dict[str, Any]]
-# state = AgentState()
-# def create_agent_state()
 
 def vs_search(query: str, search_num: int):
     """
@@ -45,10 +43,8 @@ def vs_search(query: str, search_num: int):
     results = vector_store.similarity_search(query, k=search_num)
     result_str =''
     for i in results:
-        # print(f'Doc {i}:\n  {i.page_content}\n')
-        result_str = result_str + f'Doc Source: {i.metadata.get('title')}, Page: {i.metadata.get('page')}\nContent: {i.page_content}\n\n\n'
-
-    # return {"messages": [result_str], "research_results": [result_str]}
+        pdf_source = i.metadata.get("source").split('\\')[-1].split('.')[0]
+        result_str = result_str + f'Doc Source: {pdf_source}, Page: {i.metadata.get('page')}\nContent: {i.page_content}\n\n\n'
     return result_str
 
 tools = [
@@ -57,45 +53,25 @@ tools = [
         name="vs_search",
         description="Search the FAISS vector store and return results as text."
     )]
-# tools=[vs_search]
 tool_names = ['vs_search']
 llm_w_tools = llm.bind_tools(tools)
 
 def call_model(state: AgentState):
-    # print(f'\nCALLED LLM\n')
     messages = state["messages"]
     response = llm_w_tools.invoke(messages)
-    # print(f'\nLLM RESPONSE: {response}\n')
-    # print(f'\nLLM RESPONSE TYPE: {type(response)}\n')
     state["messages"].append(response)
-    state["research_results"].append({"search_results":response})
     return state
 
 def should_continue(state: AgentState) -> str:
-    # print(f'\nCURRENT MESSAGE LIST: {state["messages"]}\n')
-    last_message = state["messages"][-1]#["content"]
-    # print(f'\nLAST MESSAGE: {last_message}\n') #.content
-    # print(f'\nLAST MESSAGE TYPE: {type(last_message)}\n') #.content
-    # print(f'\nTOOL CALL: {last_message.tool_calls}\n')
+    last_message = state["messages"][-1]
     try:
         if last_message.tool_calls:
-            # print(f'\nGOING TO tools\n')
             return "tools"
         else:
-            # print(f'\nGOING TO end\n')
             return "end"
     except:
-        # print(f'\nGOING TO end. ERROR\n')
         return "end"
-# def merge_messages(old: list, new: list):
-#     return old + [m for m in new if m not in old]
-
-# tool_node = ToolNode(tools, 
-#                      merge=lambda old_state, new_state: {
-#                          "messages": merge_messages(
-#                              old_state["messages"], new_state["messages"]
-#                          )
-#                      })
+    
 def run_tools(state: AgentState):
     """
     Custom replacement for ToolNode:
@@ -103,29 +79,21 @@ def run_tools(state: AgentState):
     - Execute them and append ToolMessage outputs
     """
     last_message = state["messages"][-1]
-    # print(f'\nLAST MESSAGE LIST (TOOLS): {last_message}\n')
     if not isinstance(last_message, AIMessage) or not getattr(last_message, "tool_calls", None):
-        # print('\nNO TOOL_CALL\n')
-        return state  # No tool calls, nothing to do
+        # No tool calls, nothing to do
+        return state  
 
     for call in last_message.tool_calls:
         name = call["name"]
-        # print(f"\nNAME: {name}\n")
         args = call.get("args", {})
-        # print(f"\nARGS: {args}\n")
-        # print(f"\nTOOLS: {tools[0].name}\n")
         for tool in tools:
             if name in tool.name:
-            # if name in tool_names:
-                # print(f'\nNAME IN TOOLS: {tool}\n')
-                # print(f'TOOL ARGS: {tool.invoke(args)}')
                 result = tool.invoke(args)
 
                 # Append a ToolMessage with the result
                 state["messages"].append(
                     ToolMessage(name=name, content=result, tool_call_id=call["id"])
                 )
-                # print(f'\nCURRENT MESSAGE LIST (TOOLS): {state["messages"]}\n')
                 state["research_results"].append(result)
 
     return state
@@ -133,7 +101,6 @@ def run_tools(state: AgentState):
 # Edges
 
 workflow = StateGraph(AgentState)
-# Define the two nodes we will cycle between
 workflow.add_node("agent", call_model)
 workflow.add_node("tools", run_tools)
 
@@ -147,10 +114,15 @@ app = workflow.compile()
 
 # ---------- RUN ----------
 if __name__ == "__main__":
-    # question = "Graph connectivity and traversal"
+    # question = "Graph connectivity and traversal summary"
     question = "Tell me about algo design from the vector store available to you"
     initial_state = AgentState(context=question, messages=[{"role":"user","content": question}], research_results=[])
     final_state = app.invoke(initial_state)
     print("\n--- RESEARCH SUMMARY ---\n")
     response = final_state["messages"][-1]
     print(response.content)
+    try:
+        research_results = final_state["research_results"][-1]
+        print(f'\nSEARCH RESULTS: \n{research_results}')
+    except:
+        print("\nNo Search Data\n")
