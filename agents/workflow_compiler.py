@@ -9,14 +9,17 @@ from.problem_parser_agent import problem_parser_agent
 class AgentState(TypedDict):
     context: str | None
     messages: list[dict[str, Any]]
+    problem_spec: dict | None
 
 def create_agent_state(
         context=None,
         messages=[],
+        problem_spec=None,
 ) -> AgentState:
     return AgentState(
         context=context,
         messages=messages,
+        problem_spec=problem_spec,
     )
 
 # ------ Define Workflow ------
