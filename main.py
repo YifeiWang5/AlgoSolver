@@ -17,7 +17,7 @@ from utilities.util_funcs import save_run
 if __name__ == "__main__":
 
     # Initialize an empty state
-    state = create_agent_state(context=f'')
+    state = create_agent_state() #context=f''
 
     # Initial full pipeline run
     state = app.invoke(state) 

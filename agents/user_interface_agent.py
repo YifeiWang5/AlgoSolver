@@ -7,8 +7,6 @@ from langchain_openai import ChatOpenAI
 os.environ["OPENAI_API_KEY"] = keyring.get_password('openai', 'api_key')
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 
-from langchain_core.messages import HumanMessage, AIMessage, ToolMessage
-
 
 def user_interface_agent(state):
     prompt_for_user = """
@@ -22,8 +20,11 @@ Please input the algorithm problem below:\n
     #     HumanMessage(content=user_input)
     # ]
     state["messages"] = [
-        {"role":"assistant", "content":prompt_for_user},
-        {"role":"assistant", "content":user_input}
+        {"role":"assistant", "content": prompt_for_user},
+        {"role":"user", "content": user_input}
     ]
-    state["context"] = state["context"] + f'\nUser: {user_input}\n'
+    if state["context"] is None:
+        state["context"] = user_input
+    else:
+        state["context"] = state["context"] + f'\nUser: {user_input}\n'
     return state
