@@ -23,4 +23,4 @@ if __name__ == "__main__":
     state = app.invoke(state) 
 
     # Save graph diagram to folder
-    save_run(state, app, run_name='dev_run1', save_path='algosolver/outputs')
+    save_run(state, app, run_name='dev_run1', save_path='outputs')

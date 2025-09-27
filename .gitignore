@@ -210,3 +210,4 @@ __marimo__/
 #IGNORE
 dev_files/
 knowledge_stores/
+outputs/

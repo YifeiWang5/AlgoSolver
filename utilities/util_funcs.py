@@ -57,7 +57,7 @@ def get_last_role_msg(messages, role):
 import json
 from pathlib import Path
 from datetime import datetime
-def save_graph_viz(graph, file_name='saved_langgraph_viz', parent_path='algosolver/outputs'):
+def save_graph_viz(graph, file_name='saved_langgraph_viz', parent_path='outputs'):
     # Set PATH for graphviz
     import os
     os.environ["PATH"] += os.pathsep + r"C:\Program Files\Graphviz\bin"
@@ -81,7 +81,7 @@ def save_graph_viz(graph, file_name='saved_langgraph_viz', parent_path='algosolv
     dot.render(save_path, format="png", cleanup=True)
 
 
-def save_graph_state(state, file_name='saved_state', parent_path='algosolver/outputs'):
+def save_graph_state(state, file_name='saved_state', parent_path='outputs'):
     # Save Path
     save_path = Path(f'{parent_path}/{file_name}_{datetime.now().strftime("%Y%m%d_%H%M%S")}.json')
     save_path.parent.mkdir(parents=True, exist_ok=True)
@@ -89,7 +89,7 @@ def save_graph_state(state, file_name='saved_state', parent_path='algosolver/out
     with open(save_path, "w") as f:
         json.dump(state, f, indent=4) #.model_dump()
 
-def save_agent_outputs(state, file_name='saved_summary_doc', parent_path='algosolver/outputs'):
+def save_agent_outputs(state, file_name='saved_summary_doc', parent_path='outputs'):
     # Save Path
     save_path = Path(f'{parent_path}/{file_name}_{datetime.now().strftime("%Y%m%d_%H%M%S")}.md')
     save_path.parent.mkdir(parents=True, exist_ok=True)
@@ -127,7 +127,7 @@ def create_unique_folder(base_name: str, parent: str = ".") -> Path:
     return folder
 
 
-def save_run(state, graph, run_name='unnamed_run', save_path='algosolver/outputs'):
+def save_run(state, graph, run_name='unnamed_run', save_path='outputs'):
     # #Set PATH for graphviz
     # import os
     # os.environ["PATH"] += os.pathsep + r"C:\Program Files\Graphviz\bin"
