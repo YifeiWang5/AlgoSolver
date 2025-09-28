@@ -13,18 +13,21 @@ from .strategy_agent import strategy_agent #, tools as planner_agent_tools
 #     algo_tech = json.load(f)
 
 # ------ Load Tools ------
+tools=[]
 # Concat all tool lists
 # tools = planner_agent_tools
 
 # ------ Define State ------
 class AgentState(TypedDict):
-    context: str | None
+    routing: str
+    context: str
     messages: list[dict[str, Any]]
-    problem_spec: dict | None
+    problem_spec: dict
     algorithm_techs: list[str]
     vector_search_results: list[dict[str, Any]]
 
 def create_agent_state(
+        routing='greeting',
         context=None,
         messages=[],
         problem_spec=None,
@@ -32,6 +35,7 @@ def create_agent_state(
         vector_search_results=None,
 ) -> AgentState:
     return AgentState(
+        routing=routing,
         context=context,
         messages=messages,
         problem_spec=problem_spec,
@@ -41,6 +45,34 @@ def create_agent_state(
 
 # ------ Define Workflow ------
 workflow = StateGraph(state_schema=AgentState) #, context_schema=Context
+
+def orchestrator(state: AgentState):
+    route = state["routing"]
+    try: #go to next agent step
+        if route == "greeting":
+            state["routing"] = "parsing"
+        elif route == "parsing":
+            state["routing"] = "strategy"
+        else:
+            state["routing"] = "end"
+    except:
+        state["routing"] = "end"
+
+    return state
+workflow.add_node("orchestrator", orchestrator)
+
+def agent_routing(state: AgentState) -> str:
+    route = state["routing"]
+    try:
+        if route == "parsing":
+            return "parsing"
+        elif route == "strategy":
+            return "strategy"
+        else:
+            return "end"
+    except:
+        return "end"
+# workflow.add_node("agent_routing", agent_routing)
 
 ## ----- Nodes -----
 def run_tools(state: AgentState):
@@ -82,25 +114,30 @@ def tool_routing(state: AgentState) -> str:
 
 def entry_node(state: AgentState):
     return user_interface_agent(state)
-workflow.add_node("Greeting Node", entry_node)
+workflow.add_node("greeting", entry_node)
 
 def parsing_node(state: AgentState):
     return problem_parser_agent(state)
-workflow.add_node("Problem Parsing", parsing_node)
+workflow.add_node("parsing", parsing_node)
 
 def strategy_node(state: AgentState):
     return strategy_agent(state)
-workflow.add_node("Strategy", strategy_node)
+workflow.add_node("strategy", strategy_node)
 # workflow.add_node("strategy_tools", run_tools)
 
 ## ----- Edges -----
-workflow.set_entry_point("Greeting Node")
-workflow.add_edge("Greeting Node", "Problem Parsing")
-workflow.add_edge("Problem Parsing", "Strategy")
+workflow.set_entry_point("greeting")
+# workflow.add_edge("Greeting Node", "Parsing")
+# workflow.add_edge("Parsing", "Strategy")
 # workflow.add_conditional_edges("Strategy", tool_routing, {"tools":"strategy_tools", "end":END})
 # workflow.add_edge("strategy_tools", "Strategy")
+workflow.add_edge("greeting", "orchestrator")
+workflow.add_conditional_edges("orchestrator", agent_routing, {"parsing":"parsing", "strategy":"strategy", "end":END})
+workflow.add_edge("parsing", "orchestrator")
+workflow.add_edge("strategy", "orchestrator")
+# workflow.add_edge("strategy_tools", "Strategy")
 
-workflow.add_edge("Strategy", END)
+# workflow.add_edge("strategy", END)
 
 
 # ------ Compile Workflow ------

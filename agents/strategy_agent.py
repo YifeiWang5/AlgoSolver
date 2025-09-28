@@ -50,4 +50,5 @@ Given an algorithm problem as a JSON object (problem_spec), determine which algo
     response = structered_llm.invoke(system_prompt)
     state["messages"].append({"role":"planner", "content": response.algorithm_techs})
     state["algorithm_techs"] = response.algorithm_techs
+    # state["routing"] = ""
     return state

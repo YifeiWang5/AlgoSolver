@@ -34,4 +34,5 @@ Extract INPUTS, OUTPUTS, CONSTRAINTS, ASSUMPTIONS, and EDGE_CASES from the provi
     response = structered_llm.invoke(system_prompt)
     state["messages"].append({"role":"parser", "content": response.dict()})
     state["problem_spec"] = response.dict()
+    # state["routing"] = "Strategy"
     return state
