@@ -4,10 +4,12 @@ from langchain_core.runnables import RunnableLambda
 from langchain_core.messages import HumanMessage, AIMessage, ToolMessage
 import json
 
+from .orchestrator_agent import orchestrator_agent
 from .user_interface_agent import user_interface_agent
 from .problem_parser_agent import problem_parser_agent
 from .strategy_agent import strategy_agent #, tools as planner_agent_tools
-from .orchestrator_agent import orchestrator_agent
+from .coder_agent import coder_agent
+
 
 # # ------ Load Utility Data ------
 # with open('utilities/algo_tech.json', "r", encoding="utf-8") as f:
@@ -25,7 +27,9 @@ class AgentState(TypedDict):
     messages: list[dict[str, Any]]
     problem_spec: dict
     algorithm_techs: list[str]
+    selected_algo: str
     vector_search_results: list[dict[str, Any]]
+    pseudocode: str
 
 def create_agent_state(
         routing='greeting',
@@ -33,7 +37,9 @@ def create_agent_state(
         messages=[],
         problem_spec=None,
         algorithm_techs=[],
+        selected_algo=None,
         vector_search_results=None,
+        pseudocode=None,
 ) -> AgentState:
     return AgentState(
         routing=routing,
@@ -41,7 +47,9 @@ def create_agent_state(
         messages=messages,
         problem_spec=problem_spec,
         algorithm_techs=algorithm_techs,
+        selected_algo=selected_algo,
         vector_search_results=vector_search_results,
+        pseudocode=pseudocode,
     )
 
 # ------ Define Workflow ------
@@ -53,16 +61,6 @@ workflow.add_node("orchestrator", orchestrator)
 
 def agent_routing(state: AgentState) -> str:
     return state["routing"]
-    # try:
-    #     if route == "parsing":
-    #         return "parsing"
-    #     elif route == "strategy":
-    #         return "strategy"
-    #     else:
-    #         return "end"
-    # except:
-    #     return "end"
-# workflow.add_node("agent_routing", agent_routing)
 
 ## ----- Nodes -----
 def run_tools(state: AgentState):
@@ -115,20 +113,22 @@ def strategy_node(state: AgentState):
 workflow.add_node("strategy", strategy_node)
 # workflow.add_node("strategy_tools", run_tools)
 
+def coder_node(state: AgentState):
+    return coder_agent(state)
+workflow.add_node("coder", coder_node)
+
 ## ----- Edges -----
 workflow.set_entry_point("greeting")
-# workflow.add_edge("Greeting Node", "Parsing")
-# workflow.add_edge("Parsing", "Strategy")
-# workflow.add_conditional_edges("Strategy", tool_routing, {"tools":"strategy_tools", "end":END})
-# workflow.add_edge("strategy_tools", "Strategy")
 workflow.add_edge("greeting", "orchestrator")
 workflow.add_conditional_edges("orchestrator", 
                                agent_routing, 
                                {"parsing":"parsing", 
                                 "strategy":"strategy", 
+                                "coder":"coder",
                                 "end":END})
 workflow.add_edge("parsing", "orchestrator")
 workflow.add_edge("strategy", "orchestrator")
+workflow.add_edge("coder", "orchestrator")
 # workflow.add_edge("strategy_tools", "Strategy")
 
 # workflow.add_edge("strategy", END)

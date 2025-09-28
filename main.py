@@ -24,3 +24,5 @@ if __name__ == "__main__":
 
     # Save graph diagram to folder
     save_run(state, app, run_name='dev_run1', save_path='outputs')
+
+    print(state['pseudocode'])
