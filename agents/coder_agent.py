@@ -1,4 +1,3 @@
-#Generates candidate algorithm strategies (e.g., greedy, divide-and-conquer, dynamic programming, graph search) and ranks them by expected complexity and simplicity.
 
 #OpenAI
 import os
