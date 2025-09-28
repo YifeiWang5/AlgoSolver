@@ -15,10 +15,6 @@ In the solution I will provide peusdocode, proof of correctness, and time comple
 Please input the algorithm problem below:\n
 """
     user_input = input(prompt_for_user)
-    # state["messages"] = [
-    #     AIMessage(content=prompt_for_user),
-    #     HumanMessage(content=user_input)
-    # ]
     state["messages"] = [
         {"role":"assistant", "content": prompt_for_user},
         {"role":"user", "content": user_input}

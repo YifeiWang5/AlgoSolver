@@ -10,3 +10,4 @@ faiss-cpu
 tavily-python
 pypdf
 graphviz
+# pygraphviz
