@@ -7,6 +7,7 @@ import json
 from .user_interface_agent import user_interface_agent
 from .problem_parser_agent import problem_parser_agent
 from .strategy_agent import strategy_agent #, tools as planner_agent_tools
+from .orchestrator_agent import orchestrator_agent
 
 # # ------ Load Utility Data ------
 # with open('utilities/algo_tech.json', "r", encoding="utf-8") as f:
@@ -47,31 +48,20 @@ def create_agent_state(
 workflow = StateGraph(state_schema=AgentState) #, context_schema=Context
 
 def orchestrator(state: AgentState):
-    route = state["routing"]
-    try: #go to next agent step
-        if route == "greeting":
-            state["routing"] = "parsing"
-        elif route == "parsing":
-            state["routing"] = "strategy"
-        else:
-            state["routing"] = "end"
-    except:
-        state["routing"] = "end"
-
-    return state
+    return orchestrator_agent(state)
 workflow.add_node("orchestrator", orchestrator)
 
 def agent_routing(state: AgentState) -> str:
-    route = state["routing"]
-    try:
-        if route == "parsing":
-            return "parsing"
-        elif route == "strategy":
-            return "strategy"
-        else:
-            return "end"
-    except:
-        return "end"
+    return state["routing"]
+    # try:
+    #     if route == "parsing":
+    #         return "parsing"
+    #     elif route == "strategy":
+    #         return "strategy"
+    #     else:
+    #         return "end"
+    # except:
+    #     return "end"
 # workflow.add_node("agent_routing", agent_routing)
 
 ## ----- Nodes -----
@@ -132,7 +122,11 @@ workflow.set_entry_point("greeting")
 # workflow.add_conditional_edges("Strategy", tool_routing, {"tools":"strategy_tools", "end":END})
 # workflow.add_edge("strategy_tools", "Strategy")
 workflow.add_edge("greeting", "orchestrator")
-workflow.add_conditional_edges("orchestrator", agent_routing, {"parsing":"parsing", "strategy":"strategy", "end":END})
+workflow.add_conditional_edges("orchestrator", 
+                               agent_routing, 
+                               {"parsing":"parsing", 
+                                "strategy":"strategy", 
+                                "end":END})
 workflow.add_edge("parsing", "orchestrator")
 workflow.add_edge("strategy", "orchestrator")
 # workflow.add_edge("strategy_tools", "Strategy")
