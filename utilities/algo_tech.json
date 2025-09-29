@@ -1,0 +1,377 @@
+{
+  "Greedy Method": {
+    "description": "Builds a solution step by step by always choosing the option that offers the most immediate benefit or least cost at each step.",
+    "problem_types": [
+      "Optimization problems",
+      "Graph algorithms (Minimum Spanning Tree, Shortest Path in specific cases)",
+      "Interval scheduling"
+    ],
+    "key_idea": "Make locally optimal choices hoping they lead to a global optimum.",
+    "examples": [
+      "Huffman Encoding",
+      "Dijkstra’s Algorithm (non-negative weights)",
+      "Kruskal’s Algorithm",
+      "Activity Selection"
+    ],
+    "advantages": [
+      "Simple and fast to implement",
+      "Often provides near-optimal or exact solutions"
+    ],
+    "limitations": [
+      "Does not guarantee global optimality in all problems",
+      "Requires problem to exhibit greedy-choice property and optimal substructure"
+    ]
+  },
+  "Divide and Conquer": {
+    "description": "Breaks a problem into smaller subproblems, solves them recursively, and combines their solutions.",
+    "problem_types": [
+      "Sorting and searching",
+      "Matrix computations",
+      "Geometric algorithms"
+    ],
+    "key_idea": "Divide the problem into subproblems of the same type, solve them independently, and merge results.",
+    "examples": [
+      "Merge Sort",
+      "Quick Sort",
+      "Binary Search",
+      "Strassen’s Matrix Multiplication",
+      "Closest Pair of Points"
+    ],
+    "advantages": [
+      "Efficient for large data sets",
+      "Easy to parallelize"
+    ],
+    "limitations": [
+      "Recursive overhead",
+      "Merging step can be complex"
+    ]
+  },
+  "Dynamic Programming": {
+    "description": "Solves complex problems by breaking them into overlapping subproblems and storing solutions to avoid recomputation.",
+    "problem_types": [
+      "Optimization problems with overlapping subproblems and optimal substructure",
+      "Sequence alignment",
+      "Pathfinding"
+    ],
+    "key_idea": "Store and reuse solutions to subproblems (memoization or tabulation).",
+    "examples": [
+      "Fibonacci Sequence",
+      "Knapsack Problem",
+      "Longest Common Subsequence",
+      "Bellman-Ford Algorithm"
+    ],
+    "advantages": [
+      "Guarantees optimal solution when applicable",
+      "Reduces exponential complexity to polynomial in many cases"
+    ],
+    "limitations": [
+      "Requires careful state design",
+      "High memory usage for large state spaces"
+    ]
+  },
+  "Backtracking": {
+    "description": "Systematically explores all possible configurations by trying and undoing choices until a valid solution is found.",
+    "problem_types": [
+      "Constraint satisfaction",
+      "Combinatorial search",
+      "Puzzles and games"
+    ],
+    "key_idea": "Incrementally build solutions and backtrack when constraints are violated.",
+    "examples": [
+      "N-Queens Problem",
+      "Sudoku Solver",
+      "Hamiltonian Path",
+      "Word Search"
+    ],
+    "advantages": [
+      "Can find all solutions, not just one",
+      "Straightforward to implement for constraint problems"
+    ],
+    "limitations": [
+      "Exponential time complexity in worst case",
+      "May require pruning techniques to be practical"
+    ]
+  },
+  "Branch and Bound": {
+    "description": "Similar to backtracking but uses bounds to prune branches that cannot yield better solutions.",
+    "problem_types": [
+      "Optimization problems",
+      "NP-hard problems like Traveling Salesman",
+      "Integer programming"
+    ],
+    "key_idea": "Use bounds to discard subproblems that cannot lead to a better solution.",
+    "examples": [
+      "Traveling Salesman Problem",
+      "Knapsack Problem",
+      "Job Scheduling"
+    ],
+    "advantages": [
+      "Efficient pruning of search space",
+      "Often significantly faster than naive backtracking"
+    ],
+    "limitations": [
+      "Still exponential in worst case",
+      "Effectiveness depends on quality of bounds"
+    ]
+  },
+  "Graph Traversal": {
+    "description": "Systematically visits nodes in a graph to explore or process its structure.",
+    "problem_types": [
+      "Pathfinding",
+      "Connectivity analysis",
+      "Cycle detection"
+    ],
+    "key_idea": "Explore nodes using BFS (breadth-first search) or DFS (depth-first search) strategies.",
+    "examples": [
+      "Breadth-First Search",
+      "Depth-First Search",
+      "Topological Sorting",
+      "Connected Components"
+    ],
+    "advantages": [
+      "Foundation for many advanced algorithms",
+      "Simple and versatile"
+    ],
+    "limitations": [
+      "May require significant memory for large graphs (BFS)",
+      "DFS can get stuck without careful implementation"
+    ]
+  },
+  "Randomized Algorithms": {
+    "description": "Use random choices in logic to achieve good average performance or simplicity.",
+    "problem_types": [
+      "Approximation algorithms",
+      "Large datasets",
+      "Complex probabilistic problems"
+    ],
+    "key_idea": "Introduce randomness to reduce worst-case complexity or simplify logic.",
+    "examples": [
+      "Randomized QuickSort",
+      "Monte Carlo Methods",
+      "Las Vegas Algorithms",
+      "Randomized Primality Test"
+    ],
+    "advantages": [
+      "Often simpler and faster on average",
+      "Can avoid pathological worst cases"
+    ],
+    "limitations": [
+      "Results may vary between runs",
+      "May only give probabilistic guarantees"
+    ]
+  },
+  "Sliding Window": {
+    "description": "Maintains a moving subset of elements (window) to compute results efficiently over a sequence.",
+    "problem_types": [
+      "Subarray/subsequence problems",
+      "Streaming data",
+      "Real-time analysis"
+    ],
+    "key_idea": "Use two pointers or a queue to maintain a fixed or dynamic window over input.",
+    "examples": [
+      "Maximum Sum Subarray of Size K",
+      "Longest Substring Without Repeating Characters",
+      "Minimum Window Substring"
+    ],
+    "advantages": [
+      "Efficient for sequential data",
+      "Reduces redundant computation"
+    ],
+    "limitations": [
+      "Limited to problems that can be expressed with contiguous windows",
+      "Requires careful bookkeeping of window state"
+    ]
+  },
+  "Two Pointers": {
+    "description": "Uses two indices moving through a sequence (often from opposite ends) to reduce complexity when searching or partitioning.",
+    "problem_types": [
+      "Sorted array problems",
+      "String matching",
+      "Linked list operations"
+    ],
+    "key_idea": "Maintain two moving pointers to shrink or expand a search space efficiently.",
+    "examples": [
+      "Pair Sum in Sorted Array",
+      "Remove Duplicates from Sorted Array",
+      "Trapping Rain Water"
+    ],
+    "advantages": [
+      "Linear time for many pair/triple problems",
+      "Low memory usage"
+    ],
+    "limitations": [
+      "Typically requires sorted data or monotonic property",
+      "Not suitable for all search patterns"
+    ]
+  },
+  "Binary Search": {
+    "description": "Efficiently searches in a sorted space by repeatedly halving the search interval.",
+    "problem_types": [
+      "Searching sorted arrays",
+      "Answer optimization (binary search on result)",
+      "Monotonic decision problems"
+    ],
+    "key_idea": "Exploit ordering or monotonicity to eliminate half of the possibilities each step.",
+    "examples": [
+      "Classic Binary Search",
+      "Lower/Upper Bound",
+      "Search in Rotated Sorted Array"
+    ],
+    "advantages": [
+      "O(log n) search time",
+      "Applies to optimization with monotonic property"
+    ],
+    "limitations": [
+      "Requires sorted or monotonic structure",
+      "Careful handling of boundaries"
+    ]
+  },
+  "Meet in the Middle": {
+    "description": "Splits input into two halves, computes results for each, and combines them to reduce exponential complexity.",
+    "problem_types": [
+      "Subset sum",
+      "Combinatorial enumeration",
+      "Cryptographic key search"
+    ],
+    "key_idea": "Divide set into two halves and precompute possibilities to reduce time from O(2^n) to O(2^(n/2)).",
+    "examples": [
+      "Subset Sum Problem",
+      "4-Sum Problem"
+    ],
+    "advantages": [
+      "Significant speedup over brute force",
+      "Useful for medium-size input (n≈40)"
+    ],
+    "limitations": [
+      "Still exponential in worst case",
+      "High memory for storing half results"
+    ]
+  },
+  "Union-Find / Disjoint Set": {
+    "description": "Data structure to efficiently manage a collection of disjoint sets, supporting union and find operations.",
+    "problem_types": [
+      "Graph connectivity",
+      "Minimum spanning tree",
+      "Dynamic connectivity queries"
+    ],
+    "key_idea": "Use parent pointers and path compression to maintain set membership efficiently.",
+    "examples": [
+      "Kruskal’s Algorithm",
+      "Connected Components",
+      "Percolation Problems"
+    ],
+    "advantages": [
+      "Near-constant amortized time per operation",
+      "Simple implementation"
+    ],
+    "limitations": [
+      "Only answers connectivity-type queries",
+      "Not suitable for weighted path queries"
+    ]
+  },
+  "Topological Sorting": {
+    "description": "Orders vertices of a directed acyclic graph (DAG) so that every edge u→v has u before v.",
+    "problem_types": [
+      "Task scheduling",
+      "Build systems",
+      "Dependency resolution"
+    ],
+    "key_idea": "Repeatedly remove nodes with no incoming edges or use DFS post-order.",
+    "examples": [
+      "Course Schedule Problem",
+      "Kahn’s Algorithm"
+    ],
+    "advantages": [
+      "Linear time in vertices + edges",
+      "Foundation for DAG-based dynamic programming"
+    ],
+    "limitations": [
+      "Only applies to DAGs",
+      "Requires cycle detection first"
+    ]
+  },
+  "Bit Manipulation": {
+    "description": "Exploits bit-level operations for optimization or state representation.",
+    "problem_types": [
+      "Subset enumeration",
+      "Low-level arithmetic",
+      "Mask-based DP"
+    ],
+    "key_idea": "Use bitwise operators for fast computations and compact representations.",
+    "examples": [
+      "Counting Set Bits",
+      "Subset DP for Traveling Salesman",
+      "Bitmasking for State Compression"
+    ],
+    "advantages": [
+      "High performance",
+      "Compact memory usage"
+    ],
+    "limitations": [
+      "Harder to read and debug",
+      "Limited to problems expressible with bits"
+    ]
+  },
+  "Sweep Line": {
+    "description": "Moves a conceptual line across the plane to process events in sorted order.",
+    "problem_types": [
+      "Computational geometry",
+      "Interval problems",
+      "Collision detection"
+    ],
+    "key_idea": "Sort events and maintain active structures as the line sweeps.",
+    "examples": [
+      "Line Segment Intersection",
+      "Skyline Problem",
+      "Maximum Overlapping Intervals"
+    ],
+    "advantages": [
+      "Efficient for geometric problems",
+      "Transforms 2D problems into 1D events"
+    ],
+    "limitations": [
+      "Requires careful data structure design",
+      "Edge cases with precision"
+    ]
+  },
+  "Kadane’s Algorithm": {
+    "description": "Finds maximum subarray sum in linear time using running sums.",
+    "problem_types": [
+      "Array subarray problems",
+      "Dynamic sums"
+    ],
+    "key_idea": "Maintain current maximum ending here and global maximum.",
+    "examples": [
+      "Maximum Subarray Sum",
+      "Maximum Circular Subarray Sum (modified)"
+    ],
+    "advantages": [
+      "Linear time",
+      "Minimal extra memory"
+    ],
+    "limitations": [
+      "Specific to sum-based subarray problems"
+    ]
+  },
+  "Reservoir Sampling": {
+    "description": "Randomly samples k items from a stream of unknown length with equal probability.",
+    "problem_types": [
+      "Data streams",
+      "Large datasets",
+      "Online algorithms"
+    ],
+    "key_idea": "Replace elements in the reservoir with decreasing probability as stream grows.",
+    "examples": [
+      "Random Sampling of Data Streams",
+      "Selecting Random Lines from File"
+    ],
+    "advantages": [
+      "Works with unknown or massive input",
+      "Constant memory"
+    ],
+    "limitations": [
+      "Randomness quality critical",
+      "Less intuitive than simple sampling"
+    ]
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "O(1)": {
+    "name": "Constant Time",
+    "description": "Execution time does not grow as input size increases.",
+    "example": "Accessing an element by index in an array."
+  },
+  "O(log n)": {
+    "name": "Logarithmic Time",
+    "description": "Runtime grows slowly, proportional to the logarithm of input size.",
+    "example": "Binary search in a sorted array."
+  },
+  "O(n)": {
+    "name": "Linear Time",
+    "description": "Runtime grows directly in proportion to the input size.",
+    "example": "Iterating through all elements in a list."
+  },
+  "O(n log n)": {
+    "name": "Linearithmic Time",
+    "description": "Runtime grows slightly faster than linear; common in efficient sorting algorithms.",
+    "example": "Merge sort or quicksort (average case)."
+  },
+  "O(n^2)": {
+    "name": "Quadratic Time",
+    "description": "Runtime grows proportional to the square of the input size, often due to nested loops.",
+    "example": "Bubble sort, insertion sort (worst case)."
+  },
+  "O(n^3)": {
+    "name": "Cubic Time",
+    "description": "Runtime grows proportional to the cube of input size, usually from triple nested loops.",
+    "example": "Floyd–Warshall algorithm for all-pairs shortest path."
+  },
+  "O(2^n)": {
+    "name": "Exponential Time",
+    "description": "Runtime doubles with each additional input element, making it impractical for large inputs.",
+    "example": "Solving the Traveling Salesman problem by brute force."
+  },
+  "O(n!)": {
+    "name": "Factorial Time",
+    "description": "Runtime grows as the factorial of input size; extremely slow for even small n.",
+    "example": "Generating all permutations of a set."
+  }
+}

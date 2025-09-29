@@ -17,10 +17,20 @@ from utilities.util_funcs import save_run
 if __name__ == "__main__":
 
     # Initialize an empty state
-    state = create_agent_state(context=f'')
+    state = create_agent_state() #context=f''
 
     # Initial full pipeline run
     state = app.invoke(state) 
 
     # Save graph diagram to folder
-    save_run(state, app, run_name='dev_run1', save_path='algosolver/outputs')
+    save_run(state, app, run_name='dev_run1', save_path='outputs')
+
+    print('\n\n\n\n======== RESULTS ========\n\n')
+
+    print(f'Code Solution: {state['pseudocode']}\n')
+
+    print(f'Proof of Correctness: {state['proof']}\n')
+
+    print(f'Big-O Notation: {state['complexity']}\n')
+
+    print(f'Real Python Solution: {state['real_code']}\n')

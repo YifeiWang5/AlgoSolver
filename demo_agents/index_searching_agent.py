@@ -53,7 +53,7 @@ tools = [
         name="vs_search",
         description="Search the FAISS vector store and return results as text."
     )]
-tool_names = ['vs_search']
+# tool_names = ['vs_search']
 llm_w_tools = llm.bind_tools(tools)
 
 def call_model(state: AgentState):
