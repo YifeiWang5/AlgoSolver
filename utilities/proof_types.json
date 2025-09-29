@@ -1,0 +1,102 @@
+{
+  "proof_of_correctness_methods": [
+    {
+      "name": "Mathematical Induction",
+      "description": "Prove the algorithm works for a base case, then assume correctness for size k and prove it works for size k+1.",
+      "best_for": "Recursive algorithms, divide-and-conquer algorithms, dynamic programming proofs",
+      "key_steps": ["Base case", "Induction hypothesis", "Inductive step"],
+      "example": "Proving Merge Sort correctly sorts arrays by induction on array size."
+    },
+    {
+      "name": "Loop Invariants",
+      "description": "Identify a property that holds true before and after every loop iteration to show correctness.",
+      "best_for": "Iterative algorithms, sorting, searching, data structure maintenance",
+      "key_steps": ["Initialization", "Maintenance", "Termination"],
+      "example": "Insertion Sort maintains that the subarray A[0..i-1] is always sorted."
+    },
+    {
+      "name": "Hoare Logic (Precondition–Postcondition)",
+      "description": "Use Hoare triples {P} C {Q} to show that if the precondition P holds, executing code C ensures the postcondition Q.",
+      "best_for": "Formal program verification, small algorithmic steps, critical systems",
+      "key_steps": ["Define preconditions", "Prove code correctness", "Establish postconditions"],
+      "example": "Proving that an algorithm for computing x^n results in result = x^n if x and n satisfy the preconditions."
+    },
+    {
+      "name": "Proof by Contradiction",
+      "description": "Assume the algorithm is incorrect and show that this assumption leads to a logical contradiction.",
+      "best_for": "Optimality proofs, greedy algorithms, shortest-path algorithms",
+      "key_steps": ["Assume incorrectness", "Derive contradiction from algorithm properties"],
+      "example": "Proving Dijkstra’s algorithm finds shortest paths by assuming a shorter path exists and reaching a contradiction."
+    },
+    {
+      "name": "Structural Induction",
+      "description": "Use induction over the structure of data (like trees or graphs) instead of size.",
+      "best_for": "Tree algorithms, graph traversal, recursive data structures",
+      "key_steps": ["Base case for smallest structure", "Inductive step for combining substructures"],
+      "example": "Proving a tree traversal visits every node exactly once."
+    },
+    {
+      "name": "Inductive Assertions",
+      "description": "Place assertions at key points in the algorithm and prove they remain true throughout execution.",
+      "best_for": "Program verification, complex loops",
+      "key_steps": ["Identify assertions", "Prove preservation of assertions"],
+      "example": "Using intermediate assertions to verify the correctness of a nested loop algorithm."
+    },
+    {
+      "name": "Proof of Termination",
+      "description": "Show that a well-founded measure decreases at each step, ensuring the algorithm halts.",
+      "best_for": "Algorithms where halting must be guaranteed",
+      "key_steps": ["Define a decreasing measure", "Prove it decreases each iteration"],
+      "example": "Euclid’s GCD algorithm terminates because the remainder strictly decreases."
+    },
+    {
+      "name": "Exchange Argument",
+      "description": "Show that any supposed optimal solution can be exchanged step by step to match the algorithm’s solution without reducing quality.",
+      "best_for": "Greedy algorithms, optimal scheduling, coding problems",
+      "key_steps": ["Assume an optimal solution", "Exchange steps to match algorithm"],
+      "example": "Proving the greedy choice in activity selection yields an optimal set of activities."
+    },
+    {
+      "name": "Monovariants and Invariants",
+      "description": "Use a property that either never changes (invariant) or changes in one direction (monovariant) to show correctness or termination.",
+      "best_for": "Termination proofs, correctness of iterative algorithms",
+      "key_steps": ["Identify property", "Prove invariance or monotonicity"],
+      "example": "Proving a decreasing counter ensures loop termination."
+    },
+    {
+      "name": "Reduction to a Known Correct Algorithm",
+      "description": "Prove correctness by reducing the problem to another one already known to be correctly solvable.",
+      "best_for": "Complex algorithms, network flow, NP-hard reductions",
+      "key_steps": ["Define reduction", "Prove correctness of transformation"],
+      "example": "Reducing a maximum matching problem to max-flow and using the correctness of max-flow algorithms."
+    },
+    {
+      "name": "Proof by Construction",
+      "description": "Show that the algorithm explicitly constructs a solution that satisfies all constraints.",
+      "best_for": "Graph algorithms, constructive combinatorics, spanning trees",
+      "key_steps": ["Define construction", "Verify solution satisfies constraints"],
+      "example": "Showing Kruskal’s algorithm constructs a spanning tree without cycles."
+    },
+    {
+      "name": "Adversarial Argument",
+      "description": "Reason about the worst-case input an adversary could provide to show the algorithm still succeeds.",
+      "best_for": "Approximation algorithms, randomized algorithms",
+      "key_steps": ["Model adversary", "Prove algorithm withstands worst case"],
+      "example": "Showing a randomized quicksort has expected O(n log n) runtime even against worst-case input."
+    },
+    {
+      "name": "Potential Function Method",
+      "description": "Define a potential or energy function and show it always moves toward a goal or remains bounded.",
+      "best_for": "Amortized analysis, data structure operations",
+      "key_steps": ["Define potential function", "Show progress or boundedness"],
+      "example": "Analyzing dynamic array resizing with a decreasing potential function."
+    },
+    {
+      "name": "Specification Refinement",
+      "description": "Start with a high-level specification and refine it step by step, proving each refinement preserves correctness.",
+      "best_for": "Complex system verification, stepwise refinement",
+      "key_steps": ["Define high-level spec", "Prove each refinement maintains correctness"],
+      "example": "Refining a high-level sorting specification into a detailed merge sort implementation."
+    }
+  ]
+}
