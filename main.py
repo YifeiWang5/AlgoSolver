@@ -25,6 +25,10 @@ if __name__ == "__main__":
     # Save graph diagram to folder
     save_run(state, app, run_name='dev_run1', save_path='outputs')
 
-    print(state['pseudocode'])
+    print('\n\n\n\n======== RESULTS ========\n\n')
 
-    print(state['proof'])
+    print(f'Code Solution: {state['pseudocode']}\n')
+
+    print(f'Proof of Correctness: {state['proof']}')
+
+    print(f'Big-O Notation: {state['complexity']}')

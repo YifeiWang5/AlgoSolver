@@ -1,12 +1,4 @@
-
-#OpenAI
-import os
-import keyring
-from langchain_openai import ChatOpenAI
-os.environ["OPENAI_API_KEY"] = keyring.get_password('openai', 'api_key')
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
-
-
+from init_llm import llm
 def orchestrator_agent(state):
 #     system_prompt = f"""
 # # Role
@@ -26,16 +18,24 @@ def orchestrator_agent(state):
         if route == "greeting":
             state["previous_agent"] = route
             state["routing"] = "parsing"
+
         elif route == "parsing":
             state["previous_agent"] = route
             state["routing"] = "strategy"
+
         elif route == "strategy":
             state["previous_agent"] = route
             state["routing"] = "coder"
+
         elif route == "coder":
             state["previous_agent"] = route
             state["routing"] = "verifier"
+
         elif route == "prover":
+            state["previous_agent"] = route
+            state["routing"] = "verifier"
+
+        elif route == "complexity":
             state["previous_agent"] = route
             state["routing"] = "verifier"
             
@@ -45,12 +45,18 @@ def orchestrator_agent(state):
                     state["routing"] = "prover"
                 else:
                     state["routing"] = "coder" #loop back if failed check
+
             if state["previous_agent"] == "prover":
                 if state["verified"]:
-                    state["routing"] = "end"
-                    # state["routing"] = "complexity"
+                    state["routing"] = "complexity"
                 else:
                     state["routing"] = "prover" #loop back if failed check
+
+            if state["previous_agent"] == "complexity":
+                if state["verified"]:
+                    state["routing"] = "end"
+                else:
+                    state["routing"] = "complexity" #loop back if failed check
 
         else:
             state["routing"] = "end"

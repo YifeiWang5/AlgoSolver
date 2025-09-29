@@ -1,10 +1,4 @@
-
-#OpenAI
-import os
-import keyring
-from langchain_openai import ChatOpenAI
-os.environ["OPENAI_API_KEY"] = keyring.get_password('openai', 'api_key')
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+from init_llm import llm
 
 from pydantic import BaseModel
 # from typing import Any
@@ -44,6 +38,22 @@ Review the provided formal proof of correctness and determine if it is a valid p
 # Proof of Correctness: {state['proof']}
 
 # Output: **ONLY** True (if the proof is a valid proof of correctness for the provided problem and solution) or False (if the proof is not valid)
+"""
+    elif state["previous_agent"] == "complexity": 
+        system_prompt =  f"""
+# Role
+You are an independent verification expert. 
+
+# Task
+Review the Big-O Notation for the provided Pseudocode Solution to an Algorithm Problem, and determine if the Big-O Notation is accurate.
+
+# Algorithm Problem: {state['problem_spec']}
+
+# Pseudocode Solution: {state['pseudocode']}
+
+# Big-O Notation: {state['complexity']}
+
+# Output: **ONLY** True (if the Big-O Notation is accurate for the provided problem and solution) or False (if the Big-O Notation is not accurate)
 """
     else:
         system_prompt = f"""

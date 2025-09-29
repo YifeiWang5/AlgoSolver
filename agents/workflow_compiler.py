@@ -10,6 +10,7 @@ from .problem_parser_agent import problem_parser_agent
 from .strategy_agent import strategy_agent #, tools as planner_agent_tools
 from .coder_agent import coder_agent
 from .prover_agent import prover_agent
+from .complexity_agent import complexity_agent
 from .verifier_agent import verifier_agent
 
 
@@ -34,6 +35,7 @@ class AgentState(TypedDict):
     vector_search_results: list[dict[str, Any]]
     pseudocode: str
     proof: str
+    complexity: str
     verified: bool
 
 def create_agent_state(
@@ -47,6 +49,7 @@ def create_agent_state(
         vector_search_results=None,
         pseudocode=None,
         proof=None,
+        complexity=None,
         verified=None,
 ) -> AgentState:
     return AgentState(
@@ -60,6 +63,7 @@ def create_agent_state(
         vector_search_results=vector_search_results,
         pseudocode=pseudocode,
         proof=proof,
+        complexity=complexity,
         verified=verified,
     )
 
@@ -132,6 +136,10 @@ def prover_node(state: AgentState):
     return prover_agent(state)
 workflow.add_node("prover", prover_node)
 
+def complexity_node(state: AgentState):
+    return complexity_agent(state)
+workflow.add_node("complexity", complexity_node)
+
 def verify_node(state: AgentState):
     return verifier_agent(state)
 workflow.add_node("verifier", verify_node)
@@ -146,11 +154,13 @@ workflow.add_conditional_edges("orchestrator",
                                 "coder":"coder",
                                 "verifier":"verifier",
                                 "prover":"prover",
+                                "complexity":"complexity",
                                 "end":END})
 workflow.add_edge("parsing", "orchestrator")
 workflow.add_edge("strategy", "orchestrator")
 workflow.add_edge("coder", "orchestrator")
 workflow.add_edge("prover", "orchestrator")
+workflow.add_edge("complexity", "orchestrator")
 workflow.add_edge("verifier", "orchestrator")
 
 # ------ Compile Workflow ------

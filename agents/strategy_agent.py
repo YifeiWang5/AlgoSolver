@@ -1,12 +1,4 @@
-#Generates candidate algorithm strategies (e.g., greedy, divide-and-conquer, dynamic programming, graph search) and ranks them by expected complexity and simplicity.
-
-#OpenAI
-import os
-import keyring
-from langchain_openai import ChatOpenAI
-os.environ["OPENAI_API_KEY"] = keyring.get_password('openai', 'api_key')
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
-
+from init_llm import llm
 import json
 # # ------ Load Tools ------
 # from langchain.tools import StructuredTool

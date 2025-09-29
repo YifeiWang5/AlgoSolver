@@ -1,10 +1,4 @@
-
-#OpenAI
-import os
-import keyring
-from langchain_openai import ChatOpenAI
-os.environ["OPENAI_API_KEY"] = keyring.get_password('openai', 'api_key')
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+from init_llm import llm
 
 def prover_agent(state):
 
