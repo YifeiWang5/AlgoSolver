@@ -54,9 +54,16 @@ def orchestrator_agent(state):
 
             if state["previous_agent"] == "complexity":
                 if state["verified"]:
-                    state["routing"] = "end"
+                    # state["routing"] = "end"
+                    state["routing"] = "real_coder"
                 else:
                     state["routing"] = "complexity" #loop back if failed check
+
+
+        elif route == "real_coder":
+            state["routing"] = "end"
+            # state["previous_agent"] = route
+            # state["routing"] = "verifier"
 
         else:
             state["routing"] = "end"

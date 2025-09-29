@@ -12,6 +12,7 @@ from .coder_agent import coder_agent
 from .prover_agent import prover_agent
 from .complexity_agent import complexity_agent
 from .verifier_agent import verifier_agent
+from .functional_code_agent import real_coder_agent
 
 
 # # ------ Load Utility Data ------
@@ -37,6 +38,7 @@ class AgentState(TypedDict):
     proof: str
     complexity: str
     verified: bool
+    real_code: str
 
 def create_agent_state(
         routing='greeting',
@@ -51,6 +53,7 @@ def create_agent_state(
         proof=None,
         complexity=None,
         verified=None,
+        real_code=None,
 ) -> AgentState:
     return AgentState(
         routing=routing,
@@ -65,6 +68,7 @@ def create_agent_state(
         proof=proof,
         complexity=complexity,
         verified=verified,
+        real_code=real_code,
     )
 
 # ------ Define Workflow ------
@@ -144,6 +148,10 @@ def verify_node(state: AgentState):
     return verifier_agent(state)
 workflow.add_node("verifier", verify_node)
 
+def real_coder_node(state: AgentState):
+    return real_coder_agent(state)
+workflow.add_node("real_coder", real_coder_node)
+
 ## ----- Edges -----
 workflow.set_entry_point("greeting")
 workflow.add_edge("greeting", "orchestrator")
@@ -155,6 +163,7 @@ workflow.add_conditional_edges("orchestrator",
                                 "verifier":"verifier",
                                 "prover":"prover",
                                 "complexity":"complexity",
+                                "real_coder":"real_coder",
                                 "end":END})
 workflow.add_edge("parsing", "orchestrator")
 workflow.add_edge("strategy", "orchestrator")
@@ -162,6 +171,7 @@ workflow.add_edge("coder", "orchestrator")
 workflow.add_edge("prover", "orchestrator")
 workflow.add_edge("complexity", "orchestrator")
 workflow.add_edge("verifier", "orchestrator")
+workflow.add_edge("real_coder", "orchestrator")
 
 # ------ Compile Workflow ------
 app = workflow.compile()

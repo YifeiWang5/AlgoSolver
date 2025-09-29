@@ -29,6 +29,8 @@ if __name__ == "__main__":
 
     print(f'Code Solution: {state['pseudocode']}\n')
 
-    print(f'Proof of Correctness: {state['proof']}')
+    print(f'Proof of Correctness: {state['proof']}\n')
 
-    print(f'Big-O Notation: {state['complexity']}')
+    print(f'Big-O Notation: {state['complexity']}\n')
+
+    print(f'Real Python Solution: {state['real_code']}\n')
