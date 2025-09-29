@@ -26,3 +26,5 @@ if __name__ == "__main__":
     save_run(state, app, run_name='dev_run1', save_path='outputs')
 
     print(state['pseudocode'])
+
+    print(state['proof'])

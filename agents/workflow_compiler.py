@@ -9,6 +9,7 @@ from .user_interface_agent import user_interface_agent
 from .problem_parser_agent import problem_parser_agent
 from .strategy_agent import strategy_agent #, tools as planner_agent_tools
 from .coder_agent import coder_agent
+from .prover_agent import prover_agent
 from .verifier_agent import verifier_agent
 
 
@@ -32,6 +33,7 @@ class AgentState(TypedDict):
     selected_algo: str
     vector_search_results: list[dict[str, Any]]
     pseudocode: str
+    proof: str
     verified: bool
 
 def create_agent_state(
@@ -44,6 +46,7 @@ def create_agent_state(
         selected_algo=None,
         vector_search_results=None,
         pseudocode=None,
+        proof=None,
         verified=None,
 ) -> AgentState:
     return AgentState(
@@ -56,6 +59,7 @@ def create_agent_state(
         selected_algo=selected_algo,
         vector_search_results=vector_search_results,
         pseudocode=pseudocode,
+        proof=proof,
         verified=verified,
     )
 
@@ -124,6 +128,10 @@ def coder_node(state: AgentState):
     return coder_agent(state)
 workflow.add_node("coder", coder_node)
 
+def prover_node(state: AgentState):
+    return prover_agent(state)
+workflow.add_node("prover", prover_node)
+
 def verify_node(state: AgentState):
     return verifier_agent(state)
 workflow.add_node("verifier", verify_node)
@@ -137,15 +145,13 @@ workflow.add_conditional_edges("orchestrator",
                                 "strategy":"strategy", 
                                 "coder":"coder",
                                 "verifier":"verifier",
+                                "prover":"prover",
                                 "end":END})
 workflow.add_edge("parsing", "orchestrator")
 workflow.add_edge("strategy", "orchestrator")
 workflow.add_edge("coder", "orchestrator")
+workflow.add_edge("prover", "orchestrator")
 workflow.add_edge("verifier", "orchestrator")
-# workflow.add_edge("strategy_tools", "Strategy")
-
-# workflow.add_edge("strategy", END)
-
 
 # ------ Compile Workflow ------
 app = workflow.compile()
