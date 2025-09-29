@@ -1,0 +1,128 @@
+{
+  "Core Techniques": {
+    "Brute Force": {
+      "description": "Explore all possible solutions and choose the best one.",
+      "examples": ["Subset Generation", "Password Cracking", "Permutation Search"]
+    },
+    "Divide and Conquer": {
+      "description": "Break a problem into smaller independent subproblems, solve them recursively, and combine results.",
+      "examples": ["Merge Sort", "Quick Sort", "Binary Search", "Fast Exponentiation"]
+    },
+    "Greedy Method": {
+      "description": "Make locally optimal choices at each step to achieve a global optimum.",
+      "examples": ["Huffman Coding", "Activity Selection", "Kruskal’s MST", "Dijkstra’s (no negative edges)"]
+    },
+    "Dynamic Programming": {
+      "description": "Solve problems with overlapping subproblems by storing intermediate results.",
+      "examples": ["Fibonacci Sequence", "Knapsack Problem", "Matrix Chain Multiplication", "Longest Common Subsequence"]
+    },
+    "Backtracking": {
+      "description": "Incrementally build solutions and backtrack when a candidate is invalid.",
+      "examples": ["N-Queens", "Sudoku Solver", "Word Search", "Subset Generation"]
+    },
+    "Branch and Bound": {
+      "description": "Prune search space using bounds to discard suboptimal paths early.",
+      "examples": ["Traveling Salesman Problem", "Integer Programming"]
+    },
+    "Two Pointers": {
+      "description": "Use two iterators to traverse a sequence efficiently.",
+      "examples": ["Sorted Array Pair Sum", "Linked List Merge", "Remove Duplicates"]
+    },
+    "Sliding Window": {
+      "description": "Maintain a window over a subset of data and slide it to optimize computation.",
+      "examples": ["Longest Substring Without Repeating Characters", "Maximum Subarray Sum"]
+    },
+    "Binary Search": {
+      "description": "Divide the search interval in half repeatedly to find a target or optimal answer.",
+      "examples": ["Search in Sorted Array", "Binary Search on Answer", "Square Root Approximation"]
+    },
+    "Bit Manipulation": {
+      "description": "Use bitwise operations to optimize computations or encode states.",
+      "examples": ["Subset Generation", "XOR Tricks", "Single Number Problem"]
+    },
+    "Hashing": {
+      "description": "Use hash maps or sets for fast lookups and frequency counting.",
+      "examples": ["Anagram Detection", "Caching", "Two Sum Problem"]
+    }
+  },
+
+  "Graph and Tree Techniques": {
+    "Graph Traversals": {
+      "description": "Explore nodes systematically using BFS or DFS.",
+      "examples": ["Connected Components", "Path Finding", "Cycle Detection"]
+    },
+    "Shortest Path Algorithms": {
+      "description": "Find minimum distances in weighted graphs.",
+      "examples": ["Dijkstra", "Bellman-Ford", "Floyd-Warshall", "A* Search"]
+    },
+    "Minimum Spanning Tree": {
+      "description": "Find a subset of edges connecting all vertices with minimum total weight.",
+      "examples": ["Kruskal’s Algorithm", "Prim’s Algorithm"]
+    },
+    "Union-Find / Disjoint Set": {
+      "description": "Efficiently manage dynamic connectivity between elements.",
+      "examples": ["Cycle Detection", "Kruskal’s MST", "Dynamic Connectivity"]
+    },
+    "Topological Sorting": {
+      "description": "Order vertices in a Directed Acyclic Graph based on dependencies.",
+      "examples": ["Task Scheduling", "Compilation Order"]
+    },
+    "Tree Dynamic Programming": {
+      "description": "Apply DP on tree structures to compute optimal properties.",
+      "examples": ["Maximum Independent Set", "Diameter of Tree", "Counting Paths"]
+    }
+  },
+
+  "Mathematics and Number Theory": {
+    "Modular Arithmetic": {
+      "description": "Perform computations under a modulus to handle large numbers.",
+      "examples": ["Cryptography", "Combinatorics", "Modular Exponentiation"]
+    },
+    "Sieve of Eratosthenes": {
+      "description": "Efficiently generate all prime numbers up to a limit.",
+      "examples": ["Prime Checking", "Factorization Preprocessing"]
+    },
+    "Fast Exponentiation": {
+      "description": "Compute powers in O(log n) using exponentiation by squaring.",
+      "examples": ["Modular Power", "Cryptography"]
+    },
+    "Combinatorics": {
+      "description": "Count arrangements, subsets, and permutations efficiently.",
+      "examples": ["Binomial Coefficients", "Inclusion-Exclusion Principle"]
+    }
+  },
+
+  "Data Structure-Based": {
+    "Priority Queues / Heaps": {
+      "description": "Retrieve maximum or minimum elements efficiently.",
+      "examples": ["Heap Sort", "Dijkstra’s Algorithm", "Median Maintenance"]
+    },
+    "Segment Tree / Fenwick Tree": {
+      "description": "Support efficient range queries and updates on arrays.",
+      "examples": ["Range Sum Query", "Range Minimum Query"]
+    },
+    "Monotonic Stack/Queue": {
+      "description": "Maintain increasing/decreasing sequences for fast retrieval.",
+      "examples": ["Next Greater Element", "Sliding Window Maximum"]
+    }
+  },
+
+  "Advanced Techniques": {
+    "Meet in the Middle": {
+      "description": "Split a problem into halves and combine results to reduce complexity.",
+      "examples": ["Subset Sum", "4-Sum Problem"]
+    },
+    "Randomized Algorithms": {
+      "description": "Use randomness to simplify logic or improve expected runtime.",
+      "examples": ["Randomized QuickSort", "Monte Carlo Methods"]
+    },
+    "Approximation Algorithms": {
+      "description": "Find near-optimal solutions when exact solutions are hard or impossible.",
+      "examples": ["Vertex Cover", "Traveling Salesman Approximation"]
+    },
+    "Game Theory (Minimax / Alpha-Beta Pruning)": {
+      "description": "Optimize decision-making in adversarial settings.",
+      "examples": ["Chess AI", "Tic-Tac-Toe", "Checkers AI"]
+    }
+  }
+}
