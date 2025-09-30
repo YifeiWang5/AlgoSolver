@@ -21,7 +21,7 @@ structered_llm = llm.with_structured_output(AnswerSchema)
 
 def strategy_agent(state):
     # Load Utility Data
-    with open('utilities/algo_tech.json', "r", encoding="utf-8") as f:
+    with open('utilities/algo_tech2.json', "r", encoding="utf-8") as f:
         algo_tech = json.load(f)
 
     system_prompt = f"""
@@ -42,5 +42,5 @@ Given an algorithm problem as a JSON object (problem_spec), determine which algo
     response = structered_llm.invoke(system_prompt)
     state["messages"].append({"role":"strategist", "content": response.algorithm_techs})
     state["algorithm_techs"] = response.algorithm_techs
-    # state["routing"] = ""
+    state["routing"] = "strategy"
     return state

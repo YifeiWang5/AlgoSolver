@@ -15,15 +15,15 @@ def orchestrator_agent(state):
 # """
     route = state["routing"]
     try: #go to next agent step
-        if route == "greeting":
-            state["previous_agent"] = route
-            state["routing"] = "parsing"
+        # if route == "greeting":
+        #     state["previous_agent"] = route
+        #     state["routing"] = "parsing"
 
-        elif route == "parsing":
-            state["previous_agent"] = route
-            state["routing"] = "strategy"
+        # elif route == "parsing":
+        #     state["previous_agent"] = route
+        #     state["routing"] = "strategy"
 
-        elif route == "strategy":
+        if route == "strategy":
             state["previous_agent"] = route
             state["routing"] = "coder"
 

@@ -154,19 +154,22 @@ workflow.add_node("real_coder", real_coder_node)
 
 ## ----- Edges -----
 workflow.set_entry_point("greeting")
-workflow.add_edge("greeting", "orchestrator")
+workflow.add_edge("greeting", "parsing")
+workflow.add_edge("parsing", "strategy")
+workflow.add_edge("strategy", "orchestrator")
 workflow.add_conditional_edges("orchestrator", 
                                agent_routing, 
-                               {"parsing":"parsing", 
-                                "strategy":"strategy", 
-                                "coder":"coder",
+                               {
+                                # "parsing":"parsing", 
+                                # "strategy":"strategy", 
                                 "verifier":"verifier",
+                                "coder":"coder",
                                 "prover":"prover",
                                 "complexity":"complexity",
                                 "real_coder":"real_coder",
                                 "end":END})
-workflow.add_edge("parsing", "orchestrator")
-workflow.add_edge("strategy", "orchestrator")
+# workflow.add_edge("parsing", "orchestrator")
+# workflow.add_edge("strategy", "orchestrator")
 workflow.add_edge("coder", "orchestrator")
 workflow.add_edge("prover", "orchestrator")
 workflow.add_edge("complexity", "orchestrator")
