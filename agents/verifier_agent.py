@@ -59,6 +59,6 @@ Review the Big-O Notation for the provided Pseudocode Solution to an Algorithm P
         system_prompt = f"""
 """
     response = structered_llm.invoke(system_prompt)
-    state["messages"].append({"role":"verifier", "content": f'Verification of proof: {response.verified}'})
+    state["messages"].append({"role":"verifier", "content": f'Verification: {response.verified}'})
     state["verified"] = response.verified
     return state
