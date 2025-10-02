@@ -9,14 +9,16 @@ def real_coder_agent(state):
 You are an expert python programmer. 
 
 # Task
-Given an Algorithm Problem and Pseudocode Solution, provide a functional python code for the Pseudocode Solution that solves the Algorithm Problem.
+Given an Algorithm Problem, Pseudocode Solution, and Code Structure: provide a functional python code for the Pseudocode Solution that solves the Algorithm Problem in the format provided with Code Structure.
 
 # Algorithm Problem: {state["problem_spec"]}
 
 # Pseudocode Solution: {state['pseudocode']}
 
+# Code Structure: {state['real_code_struct']}
 
-# Output: **ONLY** python code solution 
+
+# Output: **ONLY** python code solution in Code Structure 
 
 """
     response = llm.invoke(system_prompt)

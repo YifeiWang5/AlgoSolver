@@ -38,6 +38,7 @@ class AgentState(TypedDict):
     proof: str
     complexity: str
     verified: bool
+    real_code_struct: str
     real_code: str
 
 def create_agent_state(
@@ -53,6 +54,7 @@ def create_agent_state(
         proof=None,
         complexity=None,
         verified=None,
+        real_code_struct=None,
         real_code=None,
 ) -> AgentState:
     return AgentState(
@@ -68,6 +70,7 @@ def create_agent_state(
         proof=proof,
         complexity=complexity,
         verified=verified,
+        real_code_struct=real_code_struct,
         real_code=real_code,
     )
 
