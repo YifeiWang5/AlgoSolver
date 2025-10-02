@@ -5,7 +5,7 @@ from langchain_core.messages import HumanMessage, AIMessage, ToolMessage
 import json
 
 from .orchestrator_agent import orchestrator_agent
-from .user_interface_agent import user_interface_agent
+# from .user_interface_agent import user_interface_agent
 from .problem_parser_agent import problem_parser_agent
 from .strategy_agent import strategy_agent #, tools as planner_agent_tools
 from .coder_agent import coder_agent
@@ -123,7 +123,8 @@ def tool_routing(state: AgentState) -> str:
     
 
 def entry_node(state: AgentState):
-    return user_interface_agent(state)
+    # return user_interface_agent(state)
+    return state
 workflow.add_node("greeting", entry_node)
 
 def parsing_node(state: AgentState):
