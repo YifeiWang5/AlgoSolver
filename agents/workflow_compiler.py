@@ -40,6 +40,7 @@ class AgentState(TypedDict):
     verified: bool
     real_code_struct: str
     real_code: str
+    skip_proof: bool
 
 def create_agent_state(
         routing='greeting',
@@ -56,6 +57,7 @@ def create_agent_state(
         verified=None,
         real_code_struct=None,
         real_code=None,
+        skip_proof=False,
 ) -> AgentState:
     return AgentState(
         routing=routing,
@@ -72,6 +74,7 @@ def create_agent_state(
         verified=verified,
         real_code_struct=real_code_struct,
         real_code=real_code,
+        skip_proof=skip_proof,
     )
 
 # ------ Define Workflow ------
