@@ -59,7 +59,7 @@ class Solution(object):
 if __name__ == "__main__":
 
     # Initialize an empty state
-    state = create_agent_state(context=algo_question, real_code_struct=code_struct) #context=f''
+    state = create_agent_state(context=algo_question, real_code_struct=code_struct, skip_proof=True) #context=f''
 
     # Initial full pipeline run
     state = app.invoke(state) 

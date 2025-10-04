@@ -17,7 +17,14 @@ Given an Algorithm Problem and Pseudocode Solution, provide a formal proof of co
 # Output: **ONLY** the formal proof of correctness. **If** you cannot create a valid proof, reply with "Proof not available."
 
 """
-    response = llm.invoke(system_prompt)
-    state["messages"].append({"role":"prover", "content": f'Proof of Correctness: {response.content}'})
-    state["proof"] = response.content
+    if state["skip_proof"]:
+        state["proof"] = "\nPROOF SKIPPED\n"
+        state["previous_agent"] = "prover"
+        state["routing"] = "verifier"
+        state["verified"] = True
+        
+    else:
+        response = llm.invoke(system_prompt)
+        state["messages"].append({"role":"prover", "content": f'Proof of Correctness: {response.content}'})
+        state["proof"] = response.content
     return state
