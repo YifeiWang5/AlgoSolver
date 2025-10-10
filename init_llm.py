@@ -7,4 +7,5 @@
 
 # Ollama
 from langchain_ollama import ChatOllama
-llm = ChatOllama(model="gemma3:27b", temperature=1.0, top_k = 64, top_p = 0.95 , validate_model_on_init=True) 
+llm = ChatOllama(model="gpt-oss:20b", validate_model_on_init=True)  #temperature=1.0, top_k = 64, top_p = 0.95 , 
+parse_llm = ChatOllama(model="gemma3:27b", temperature=1.0, top_k = 64, top_p = 0.95 , validate_model_on_init=True) 

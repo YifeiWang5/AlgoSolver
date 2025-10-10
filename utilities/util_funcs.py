@@ -85,6 +85,8 @@ def save_graph_state(state, file_name='saved_state', parent_path='outputs'):
     # Save Path
     save_path = Path(f'{parent_path}/{file_name}_{datetime.now().strftime("%Y%m%d_%H%M%S")}.json')
     save_path.parent.mkdir(parents=True, exist_ok=True)
+    # state_cleaned = state.pop('tool_call')
+    state['tool_call']=None
 
     with open(save_path, "w") as f:
         json.dump(state, f, indent=4) #.model_dump()

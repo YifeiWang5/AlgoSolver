@@ -1,4 +1,4 @@
-from init_llm import llm
+from init_llm import parse_llm as llm
 
 from pydantic import BaseModel
 # from typing import Any

@@ -1,4 +1,4 @@
-from init_llm import llm
+from init_llm import parse_llm as llm
 
 from pydantic import BaseModel
 # from typing import Any
@@ -21,6 +21,7 @@ Given a list of possible algorithm techniques, choose the best option for solvin
 
 # Algorithm Problem: {state["problem_spec"]}
 
+# Research Results: {state["research_summary"]}
 
 # Output: **ONLY** the selected algorithm technique save to 'selected_algo', and the pseudocode solution saved to 'pseudocode'
 

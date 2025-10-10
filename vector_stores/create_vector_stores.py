@@ -28,6 +28,7 @@ reset = False
 # # ----------------------------------------
 pdf_dir = Path("./knowledge_stores") 
 save_path = "./vector_stores"
+store_path = f'{save_path}/index'
 
 # # ----------------------------------------
 # # Embedding model
@@ -79,7 +80,7 @@ print(f"Saved to {filename}\n")
 # # ----------------------------------------
 # # Load existing FAISS store (or create new), and add documents
 # # ----------------------------------------
-store_path = f'{save_path}/index'
+
 if os.path.exists(store_path) and not reset:
     # Load existing persistent index
     vector_store = FAISS.load_local(store_path, embeddings, allow_dangerous_deserialization=True)
