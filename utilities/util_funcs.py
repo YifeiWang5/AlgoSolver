@@ -96,7 +96,7 @@ def save_agent_outputs(state, file_name='saved_summary_doc', parent_path='output
     save_path = Path(f'{parent_path}/{file_name}_{datetime.now().strftime("%Y%m%d_%H%M%S")}.md')
     save_path.parent.mkdir(parents=True, exist_ok=True)
 
-    content = f"OUTPUT\n\n====== Pseudocode Code ======\n{state['pseudocode']}\n\n====== Formal Proof ====== \n{state['proof']}\n\n====== Complexity ====== \n{state['complexity']}\n\n====== Functional Python Code ====== \n{state['real_code']}\n\n"
+    content = f"OUTPUT\n\n====== Research Summary ======\n{state['research_summary']}\n\n====== Pseudocode Code ======\n{state['pseudocode']}\n\n====== Formal Proof ====== \n{state['proof']}\n\n====== Complexity ====== \n{state['complexity']}\n\n====== Functional Python Code ====== \n{state['real_code']}\n\n"
     with open(save_path, "w", encoding="utf-8") as f: #"a" for append
         f.write(content)
 

@@ -13,57 +13,68 @@ from agents.workflow_compiler import app, create_agent_state
 from utilities.util_funcs import save_run
 from langchain_core.runnables.config import RunnableConfig
 
-save_path = '2_Add_Two_Numbers'
+save_path = '13_Roman_to_Integer'
 
 algo_question = """
-You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
 
-You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+Symbol       Value
+I             1
+V             5
+X             10
+L             50
+C             100
+D             500
+M             1000
 
+For example, 2 is written as II in Roman numeral, just two ones added together. 12 is written as XII, which is simply X + II. The number 27 is written as XXVII, which is XX + V + II.
 
+Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead, the number four is written as IV. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:
 
-Example 1:
+    I can be placed before V (5) and X (10) to make 4 and 9. 
+    X can be placed before L (50) and C (100) to make 40 and 90. 
+    C can be placed before D (500) and M (1000) to make 400 and 900.
 
-Input: l1 = [2,4,3], l2 = [5,6,4]
-Output: [7,0,8]
-Explanation: 342 + 465 = 807.
-
-Example 2:
-
-Input: l1 = [0], l2 = [0]
-Output: [0]
-
-Example 3:
-
-Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
-Output: [8,9,9,9,0,0,0,1]
+Given a roman numeral, convert it to an integer.
 
  
 
+Example 1:
+
+Input: s = "III"
+Output: 3
+Explanation: III = 3.
+
+Example 2:
+
+Input: s = "LVIII"
+Output: 58
+Explanation: L = 50, V= 5, III = 3.
+
+Example 3:
+
+Input: s = "MCMXCIV"
+Output: 1994
+Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
+
+ 
 
 Constraints:
 
-    The number of nodes in each linked list is in the range [1, 100].
-    0 <= Node.val <= 9
-    It is guaranteed that the list represents a number that does not have leading zeros.
-
-
+    1 <= s.length <= 15
+    s contains only the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').
+    It is guaranteed that s is a valid roman numeral in the range [1, 3999].
 
 """
 
 code_struct = '''
-# Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
 class Solution(object):
-    def addTwoNumbers(self, l1, l2):
+    def romanToInt(self, s):
         """
-        :type l1: Optional[ListNode]
-        :type l2: Optional[ListNode]
-        :rtype: Optional[ListNode]
+        :type s: str
+        :rtype: int
         """
+        
 '''
 # ---- Interactive Session ----
 if __name__ == "__main__":

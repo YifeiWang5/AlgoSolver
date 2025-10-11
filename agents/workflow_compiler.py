@@ -35,7 +35,6 @@ class AgentState(TypedDict):
     problem_spec: dict
     algorithm_techs: list[str]
     selected_algo: str
-    # vector_search_results: list[dict[str, Any]]
     pseudocode: str
     proof: str
     complexity: str
@@ -43,19 +42,19 @@ class AgentState(TypedDict):
     real_code_struct: str
     real_code: str
     skip_proof: bool
+    research_queries: list[str]
     research_findings: list[str]
     research_summary: str
     tool_call: dict[str, Any]
 
 def create_agent_state(
-        routing='greeting',
-        previous_agent='greeting',
+        routing='start',
+        previous_agent='start',
         context=None,
         messages=[],
         problem_spec=None,
         algorithm_techs=[],
         selected_algo=None,
-        # vector_search_results=None,
         pseudocode=None,
         proof=None,
         complexity=None,
@@ -63,6 +62,7 @@ def create_agent_state(
         real_code_struct=None,
         real_code=None,
         skip_proof=False,
+        research_queries=[],
         research_findings=[],
         research_summary=None,
         tool_call=None,
@@ -76,7 +76,6 @@ def create_agent_state(
         problem_spec=problem_spec,
         algorithm_techs=algorithm_techs,
         selected_algo=selected_algo,
-        # vector_search_results=vector_search_results,
         pseudocode=pseudocode,
         proof=proof,
         complexity=complexity,
@@ -84,6 +83,7 @@ def create_agent_state(
         real_code_struct=real_code_struct,
         real_code=real_code,
         skip_proof=skip_proof,
+        research_queries=research_queries,
         research_findings=research_findings,
         research_summary=research_summary,
         tool_call=tool_call,
@@ -143,10 +143,10 @@ def tool_routing(state: AgentState) -> str:
         return "end"
     
 
-def entry_node(state: AgentState):
-    # return user_interface_agent(state)
-    return state
-workflow.add_node("greeting", entry_node)
+# def entry_node(state: AgentState):
+#     # return user_interface_agent(state)
+#     return state
+# workflow.add_node("greeting", entry_node)
 
 def parsing_node(state: AgentState):
     return problem_parser_agent(state)
@@ -187,39 +187,34 @@ def real_coder_node(state: AgentState):
 workflow.add_node("real_coder", real_coder_node)
 
 ## ----- Edges -----
-workflow.set_entry_point("greeting")
-workflow.add_edge("greeting", "parsing")
+# workflow.set_entry_point("greeting")
+# workflow.add_edge("greeting", "parsing")
+workflow.set_entry_point("parsing")
 workflow.add_edge("parsing", "research")
-workflow.add_conditional_edges("research", tool_routing, {"tools":"research_tools", "end":"summary"})
-workflow.add_edge("research_tools", "research")
-workflow.add_edge("summary", "strategy")
+workflow.add_conditional_edges("research", tool_routing, 
+                               {
+                                   "tools":"research_tools", 
+                                   "end":"strategy"
+                                   })
+workflow.add_edge("research_tools", "summary")
+workflow.add_edge("summary", "research")
+# workflow.add_edge("summary", "strategy")
 workflow.add_edge("strategy", "orchestrator")
 workflow.add_conditional_edges("orchestrator", 
                                agent_routing, 
                                {
-                                # "parsing":"parsing", 
-                                # "strategy":"strategy", 
                                 "verifier":"verifier",
                                 "coder":"coder",
                                 "prover":"prover",
                                 "complexity":"complexity",
                                 "real_coder":"real_coder",
-                                "end":END})
-# workflow.add_edge("parsing", "orchestrator")
-# workflow.add_edge("strategy", "orchestrator")
+                                "end":END
+                                })
 workflow.add_edge("coder", "orchestrator")
 workflow.add_edge("prover", "orchestrator")
 workflow.add_edge("complexity", "orchestrator")
 workflow.add_edge("verifier", "orchestrator")
 workflow.add_edge("real_coder", "orchestrator")
-
-# research
-# workflow.add_node("agent", call_model)
-# workflow.add_node("tools", run_tools)
-
-# workflow.add_edge(START, "agent")
-# workflow.add_conditional_edges("agent", should_continue, {"tools":"tools", "end":END})
-# workflow.add_edge("tools", "agent")
 
 # ------ Compile Workflow ------
 app = workflow.compile()
