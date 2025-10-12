@@ -13,6 +13,8 @@ Given an Algorithm Problem and Pseudocode Solution, provide a formal proof of co
 
 # Pseudocode Solution: {state['pseudocode']}
 
+# Research Results: {state["research_summary"]}
+
 
 # Output: **ONLY** the formal proof of correctness. **If** you cannot create a valid proof, reply with "Proof not available."
 

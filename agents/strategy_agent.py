@@ -1,4 +1,4 @@
-from init_llm import llm
+from init_llm import parse_llm as llm
 import json
 # # ------ Load Tools ------
 # from langchain.tools import StructuredTool
@@ -29,11 +29,13 @@ def strategy_agent(state):
 You are an expert at determining the best algorithm technique given a algorithm problem. 
 
 # Task
-Given an algorithm problem as a JSON object (problem_spec), determine which algorithm technique is best from the available options. 
+Given an algorithm problem as a JSON object (problem_spec), determine which algorithm technique is best from the available options.
 
 # Algorithm Techniques: {algo_tech}
 
 # Input (problem_spec): {state["problem_spec"]}
+
+# Research Results: {state["research_summary"]}
 
 
 # Output: **ONLY** a list of algo_tech keys.
